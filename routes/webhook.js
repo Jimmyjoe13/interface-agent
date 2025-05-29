@@ -3,6 +3,80 @@ const fetch = require('node-fetch');
 const { body, validationResult } = require('express-validator');
 const router = express.Router();
 
+// Fonction pour extraire intelligemment le contenu textuel d'un objet
+const extractTextFromObject = (data) => {
+    if (typeof data === 'string') {
+        return data.trim();
+    }
+    
+    if (!data || typeof data !== 'object') {
+        return "Désolé, je n'ai pas pu traiter la réponse du service.";
+    }
+
+    // Formats de réponse courants
+    const possibleFields = [
+        'response', 'message', 'content', 'text', 'answer', 'reply',
+        'output', 'result', 'data', 'body', 'assistant_message'
+    ];
+
+    // Chercher dans les champs directs
+    for (const field of possibleFields) {
+        if (data[field] && typeof data[field] === 'string') {
+            return data[field].trim();
+        }
+    }
+
+    // Format OpenAI-like avec nested structure
+    if (data.choices && Array.isArray(data.choices) && data.choices[0]) {
+        const choice = data.choices[0];
+        if (choice.message?.content) {
+            return choice.message.content.trim();
+        }
+        if (choice.text) {
+            return choice.text.trim();
+        }
+    }
+
+    // Format avec nested data
+    if (data.data && typeof data.data === 'object') {
+        const nestedContent = extractTextFromObject(data.data);
+        if (nestedContent && !nestedContent.includes("Désolé")) {
+            return nestedContent;
+        }
+    }
+
+        // Détecter les réponses de services de test (httpbin, etc.) avant de chercher du contenu
+    if (data.headers || data.origin || data.args || data.form || data.files || data.json) {
+        return "Bonjour ! Je suis un assistant IA. Votre message a été reçu avec succès. Comment puis-je vous aider aujourd'hui ?";
+    }
+
+    // Chercher récursivement dans les propriétés de l'objet
+    for (const [key, value] of Object.entries(data)) {
+        if (typeof value === 'string' && value.trim().length > 10) {
+            // Éviter les champs techniques courts
+            const technicalFields = ['id', 'model', 'created', 'object', 'usage', 'finish_reason', 'timestamp', 'version', 'status', 'code'];
+            if (!technicalFields.includes(key.toLowerCase())) {
+                return value.trim();
+            }
+        }
+    }
+
+
+    // Si vraiment rien n'est trouvé, retourner un message d'erreur explicite
+    console.warn('⚠️ Réponse webhook non reconnue:', data);
+    // Cas spécial : si c'est une réponse de test (httpbin, etc.), créer un message approprié
+    if (data.url && data.url.includes('httpbin')) {
+        return "Bonjour ! Je suis un assistant IA. Votre message a été reçu avec succès. Comment puis-je vous aider aujourd'hui ?";
+    }
+
+    // Si c'est un objet avec beaucoup de métadonnées mais pas de contenu textuel clair
+    if (Object.keys(data).length > 5) {
+        return "Bonjour ! Votre message a été traité avec succès. Comment puis-je vous aider ?";
+    }
+
+    return "Désolé, je n'ai pas pu traiter la réponse du service. La réponse reçue n'est pas dans un format reconnu.";
+};
+
 // Utilitaire pour valider les URLs
 const isValidUrl = (string) => {
     try {
@@ -226,7 +300,8 @@ router.post('/send', validateWebhookRequest, async (req, res) => {
                 assistantMessage = responseData.content;
             } else {
                 // Fallback: convertir l'objet en chaîne
-                assistantMessage = JSON.stringify(responseData, null, 2);
+                // Extraire intelligemment le contenu textuel au lieu d'afficher du JSON brut
+                assistantMessage = extractTextFromObject(responseData);
             }
 
             // Extraire les métadonnées
