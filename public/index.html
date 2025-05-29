@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assistant IA Universel</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/chat.css">
+    <link rel="stylesheet" href="styles/config.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1><i class="fas fa-robot"></i> Assistant IA Universel</h1>
+                <div class="header-controls">
+                    <button id="theme-toggle" class="btn-icon" title="Changer de thème">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <div class="connection-status" id="connection-status">
+                        <i class="fas fa-circle"></i>
+                        <span>Déconnecté</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="tab-navigation">
+            <button class="tab-btn active" data-tab="chat">
+                <i class="fas fa-comments"></i>
+                <span>Chat</span>
+            </button>
+            <button class="tab-btn" data-tab="config">
+                <i class="fas fa-cog"></i>
+                <span>Configuration</span>
+            </button>
+            <button class="tab-btn" data-tab="history">
+                <i class="fas fa-history"></i>
+                <span>Historique</span>
+            </button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Chat Tab -->
+            <div class="tab-content active" id="chat-tab">
+                <div class="chat-container">
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="welcome-message">
+                            <div class="welcome-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <h3>Bienvenue dans l'Assistant IA Universel</h3>
+                            <p>Configurez votre webhook dans l'onglet Configuration pour commencer à discuter.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-input-container">
+                        <div class="input-wrapper">
+                            <textarea 
+                                id="message-input" 
+                                placeholder="Tapez votre message ici... (Ctrl+Entrée pour envoyer)"
+                                rows="1"
+                                disabled
+                            ></textarea>
+                            <button id="send-btn" class="send-btn" disabled>
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                        <div class="input-actions">
+                            <button id="clear-chat" class="btn-secondary">
+                                <i class="fas fa-trash"></i>
+                                Effacer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Configuration Tab -->
+            <div class="tab-content" id="config-tab">
+                <div class="config-container">
+                    <div class="config-section">
+                        <h3><i class="fas fa-link"></i> Configuration du Webhook</h3>
+                        
+                        <div class="form-group">
+                            <label for="webhook-url">URL du Webhook *</label>
+                            <div class="input-with-validation">
+                                <input 
+                                    type="url" 
+                                    id="webhook-url" 
+                                    placeholder="https://api.exemple.com/webhook"
+                                    required
+                                >
+                                <div class="validation-icon" id="url-validation">
+                                    <i class="fas fa-question-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="http-method">Méthode HTTP</label>
+                            <select id="http-method">
+                                <option value="POST">POST</option>
+                                <option value="PUT">PUT</option>
+                                <option value="PATCH">PATCH</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="custom-headers">Headers personnalisés (JSON)</label>
+                            <textarea 
+                                id="custom-headers" 
+                                placeholder='{"Authorization": "Bearer token", "Content-Type": "application/json"}'
+                                rows="3"
+                            ></textarea>
+                        </div>
+
+                        <div class="form-actions">
+                            <button id="test-webhook" class="btn-secondary">
+                                <i class="fas fa-vial"></i>
+                                Tester la connexion
+                            </button>
+                            <button id="save-config" class="btn-primary">
+                                <i class="fas fa-save"></i>
+                                Sauvegarder
+                            </button>
+                        </div>
+
+                        <div class="test-result" id="test-result"></div>
+                    </div>
+
+                    <div class="config-section">
+                        <h3><i class="fas fa-bookmark"></i> Profils sauvegardés</h3>
+                        <div class="profiles-container" id="profiles-container">
+                            <p class="no-profiles">Aucun profil sauvegardé</p>
+                        </div>
+                        
+                        <div class="profile-actions">
+                            <input 
+                                type="text" 
+                                id="profile-name" 
+                                placeholder="Nom du profil"
+                                maxlength="50"
+                            >
+                            <button id="save-profile" class="btn-secondary">
+                                <i class="fas fa-plus"></i>
+                                Créer un profil
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- History Tab -->
+            <div class="tab-content" id="history-tab">
+                <div class="history-container">
+                    <div class="history-header">
+                        <h3><i class="fas fa-history"></i> Historique des conversations</h3>
+                        <div class="history-actions">
+                            <input 
+                                type="text" 
+                                id="search-history" 
+                                placeholder="Rechercher dans l'historique..."
+                            >
+                            <button id="export-history" class="btn-secondary">
+                                <i class="fas fa-download"></i>
+                                Exporter
+                            </button>
+                            <button id="import-history" class="btn-secondary">
+                                <i class="fas fa-upload"></i>
+                                Importer
+                            </button>
+                            <input type="file" id="import-file" accept=".json" style="display: none;">
+                        </div>
+                    </div>
+                    
+                    <div class="history-list" id="history-list">
+                        <p class="no-history">Aucune conversation dans l'historique</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loading-overlay">
+            <div class="loading-spinner">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Envoi en cours...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/storage.js"></script>
+    <script src="scripts/webhook.js"></script>
+    <script src="scripts/chat.js"></script>
+    <script src="scripts/app.js"></script>
+</body>
+</html>

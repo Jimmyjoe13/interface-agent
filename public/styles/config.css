@@ -1,0 +1,560 @@
+/* Styles pour l'interface de configuration */
+
+/* Container principal de configuration */
+.config-container {
+    padding: 2rem;
+    overflow-y: auto;
+    height: 100%;
+    background-color: var(--bg-primary);
+}
+
+/* Sections de configuration */
+.config-section {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-fast);
+}
+
+.config-section:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--border-hover);
+}
+
+.config-section h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    font-weight: 600;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.config-section h3 i {
+    color: var(--primary-color);
+    font-size: 1.125rem;
+}
+
+/* Profils sauvegardés */
+.profiles-container {
+    min-height: 120px;
+    margin-bottom: 1.5rem;
+}
+
+.no-profiles {
+    text-align: center;
+    color: var(--text-muted);
+    font-style: italic;
+    padding: 2rem;
+    background-color: var(--bg-tertiary);
+    border: 2px dashed var(--border-color);
+    border-radius: var(--radius-md);
+}
+
+.profile-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    margin-bottom: 0.75rem;
+    transition: all var(--transition-fast);
+    cursor: pointer;
+}
+
+.profile-item:hover {
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
+}
+
+.profile-item.active {
+    border-color: var(--primary-color);
+    background-color: rgba(37, 99, 235, 0.05);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.profile-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.profile-name {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.profile-name .profile-badge {
+    background-color: var(--primary-color);
+    color: var(--text-inverse);
+    font-size: 0.7rem;
+    padding: 0.125rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+}
+
+.profile-url {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    word-break: break-all;
+    margin-bottom: 0.25rem;
+}
+
+.profile-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.profile-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-left: 1rem;
+}
+
+.profile-btn {
+    padding: 0.5rem;
+    border: none;
+    background: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-btn:hover {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.profile-btn.load {
+    color: var(--primary-color);
+}
+
+.profile-btn.load:hover {
+    background-color: rgba(37, 99, 235, 0.1);
+}
+
+.profile-btn.delete {
+    color: var(--danger-color);
+}
+
+.profile-btn.delete:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* Actions de profil */
+.profile-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.profile-actions input {
+    flex: 1;
+    min-width: 200px;
+}
+
+/* Container d'historique */
+.history-container {
+    padding: 2rem;
+    overflow-y: auto;
+    height: 100%;
+    background-color: var(--bg-primary);
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.history-header h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.history-header h3 i {
+    color: var(--primary-color);
+}
+
+.history-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.history-actions input {
+    min-width: 250px;
+    max-width: 300px;
+}
+
+/* Liste d'historique */
+.history-list {
+    min-height: 400px;
+}
+
+.no-history {
+    text-align: center;
+    color: var(--text-muted);
+    font-style: italic;
+    padding: 3rem;
+    background-color: var(--bg-secondary);
+    border: 2px dashed var(--border-color);
+    border-radius: var(--radius-md);
+}
+
+.history-item {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: all var(--transition-fast);
+    cursor: pointer;
+}
+
+.history-item:hover {
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
+}
+
+.history-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+
+.history-item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.history-item-title {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+    word-break: break-word;
+}
+
+.history-item-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    flex-wrap: wrap;
+}
+
+.history-item-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.history-item-preview {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    max-height: 3rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.history-item-preview::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 30%;
+    height: 1.5rem;
+    background: linear-gradient(to right, transparent, var(--bg-secondary));
+}
+
+/* Messages de statut pour la configuration */
+.config-status {
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.config-status.success {
+    background-color: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    color: var(--accent-color);
+}
+
+.config-status.error {
+    background-color: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    color: var(--danger-color);
+}
+
+.config-status.warning {
+    background-color: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    color: var(--warning-color);
+}
+
+.config-status.info {
+    background-color: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    color: #3b82f6;
+}
+
+/* Indicateurs de validation */
+.validation-feedback {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.validation-feedback.valid {
+    color: var(--accent-color);
+}
+
+.validation-feedback.invalid {
+    color: var(--danger-color);
+}
+
+.validation-feedback i {
+    font-size: 1rem;
+}
+
+/* Templates prédéfinis */
+.templates-section {
+    margin-top: 2rem;
+}
+
+.templates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.template-card {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.template-card:hover {
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-2px);
+}
+
+.template-card h4 {
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.template-card p {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+}
+
+.template-card .template-url {
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    background-color: var(--bg-tertiary);
+    padding: 0.5rem;
+    border-radius: var(--radius-sm);
+    word-break: break-all;
+}
+
+/* Responsive pour la configuration */
+@media (max-width: 768px) {
+    .config-container,
+    .history-container {
+        padding: 1rem;
+    }
+    
+    .config-section {
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .history-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .history-actions {
+        justify-content: stretch;
+    }
+    
+    .history-actions input {
+        min-width: auto;
+        max-width: none;
+        flex: 1;
+    }
+    
+    .profile-item {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+    
+    .profile-actions {
+        justify-content: flex-end;
+        margin-left: 0;
+    }
+    
+    .history-item-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .history-item-actions {
+        justify-content: flex-end;
+    }
+    
+    .templates-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .profile-actions {
+        flex-direction: column;
+    }
+    
+    .profile-actions input {
+        min-width: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .config-section h3 {
+        font-size: 1.125rem;
+    }
+    
+    .profile-meta {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+    
+    .history-item-meta {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+    
+    .history-actions {
+        flex-direction: column;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+}
+
+/* Animations pour la configuration */
+@keyframes configSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.config-section {
+    animation: configSlideIn 0.3s ease-out;
+}
+
+.profile-item,
+.history-item {
+    animation: configSlideIn 0.3s ease-out;
+}
+
+/* États de chargement pour la configuration */
+.config-loading {
+    opacity: 0.6;
+    pointer-events: none;
+    position: relative;
+}
+
+.config-loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: shimmer 1.5s infinite;
+}
+
+/* Tooltips pour la configuration */
+.config-tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.config-tooltip .tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    text-align: center;
+    border-radius: var(--radius-sm);
+    padding: 0.5rem;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -100px;
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+    font-size: 0.875rem;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+}
+
+.config-tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
