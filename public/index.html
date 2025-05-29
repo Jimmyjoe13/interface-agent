@@ -110,13 +110,28 @@
                             </select>
                         </div>
 
-                        <div class="form-group">
+                                                <div class="form-group">
                             <label for="custom-headers">Headers personnalisés (JSON)</label>
                             <textarea 
                                 id="custom-headers" 
                                 placeholder='{"Authorization": "Bearer token", "Content-Type": "application/json"}'
                                 rows="3"
                             ></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="request-timeout">Timeout de requête (secondes)</label>
+                            <div class="input-with-info">
+                                <input 
+                                    type="number" 
+                                    id="request-timeout" 
+                                    min="10" 
+                                    max="300" 
+                                    value="90" 
+                                    placeholder="90"
+                                >
+                                <small class="input-help">Durée maximale d'attente pour une réponse (10-300 secondes)</small>
+                            </div>
                         </div>
 
                         <div class="form-actions">

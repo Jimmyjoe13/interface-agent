@@ -9,7 +9,7 @@ const WebhookManager = {
         headers: {
             'Content-Type': 'application/json'
         },
-        timeout: 30000
+        timeout: 90000
     },
 
     // État actuel

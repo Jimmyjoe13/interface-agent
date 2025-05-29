@@ -145,7 +145,7 @@ router.post('/test', validateWebhookRequest, async (req, res) => {
                 ...headers
             },
             body: JSON.stringify(testPayload),
-            timeout: 30000 // 30 secondes de timeout
+            timeout: 90000 // 90 secondes de timeout
         };
 
         console.log(`🔍 Test de connexion webhook: ${method} ${url}`);
@@ -252,7 +252,7 @@ router.post('/send', validateWebhookRequest, async (req, res) => {
                 ...headers
             },
             body: JSON.stringify(enrichedPayload),
-            timeout: 30000
+            timeout: 90000
         };
 
         console.log(`📤 Envoi message webhook: ${method} ${url}`);

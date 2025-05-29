@@ -374,7 +374,7 @@ const Storage = {
             maxHistoryItems: 100,
             showTimestamps: true,
             enableNotifications: true,
-            requestTimeout: 30000
+            requestTimeout: 90000
         });
     },
 
